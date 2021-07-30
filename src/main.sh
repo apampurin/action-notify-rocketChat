@@ -12,7 +12,7 @@ to="$6"
 bot_name=${7:-CI-Bot}
 
 msg=${msg//__/\\n}
-msg=${msg//--/\`}
+msg=${msg//::/\`}
 
 sendPrivateMessage(){
   TO="@$to"
