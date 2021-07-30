@@ -11,6 +11,9 @@ pass="$5"
 to="$6"
 bot_name=${7:-CI-Bot}
 
+msg=${msg//__/\\n}
+msg=${msg//--/\`}
+
 sendPrivateMessage(){
   TO="@$to"
   echo "$msg"
@@ -21,7 +24,7 @@ sendPrivateMessage(){
   userId=$(echo "$userData" | jq -r '.userId')
   token=$(echo "$userData" | jq -r '.authToken')
 
-  response=$(curl -v -d "$data" -H "Content-type:application/json" -H "X-User-Id: $userId" -H "X-Auth-Token: $token" $ROCKET_CHAT_URL$SEND_MESSAGE_URL)
+  response=$(curl -d "$data" -H "Content-type:application/json" -H "X-User-Id: $userId" -H "X-Auth-Token: $token" $ROCKET_CHAT_URL$SEND_MESSAGE_URL)
   echo $response
 }
 
